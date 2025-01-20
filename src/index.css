@@ -10,18 +10,21 @@
 
 .countdown {
   width: 100%;
-
-  h1 {
-    font-weight: 700;
-  }
+  text-align: center;
 
   .content {
     width: 100%;
+    height: 90vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin: auto;
     gap: 2rem;
+
+    @media screen and (max-width: 550px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   .box {
@@ -30,9 +33,103 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 10rem;
-    max-width: 5rem;
+    max-width: 8rem;
+  }
+
+  .value {
+    font-size: 2rem;
+    font-weight: 400;
     background-color: #202020;
     color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 7rem;
+    height: 7rem;
+    box-shadow: -2px 0px 5px 1px #202020ab;
   }
+
+  .label {
+    color: #202020ab;
+    margin: 1rem;
+  }
+}
+
+.present {
+  width: 100vw;
+  max-width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .message {
+    background-color: #909090dd;
+    position: absolute;
+    font-weight: 600;
+    padding: 0.4rem;
+    border-radius: 20px;
+  }
+
+  .collage {
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 5rem;
+    grid-row-gap: 7rem;
+    justify-items: center;
+    align-items: center;
+
+    .photo {
+      width: 18rem;
+      border-radius: 10px;
+      justify-self: center;
+      align-self: center;
+      box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2);
+
+      img {
+        width: 100%;
+        border-radius: 10px;
+        height: auto;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+@keyframes wave1 {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+
+  100% {
+    transform: translateX(-100%) translateY(0);
+  }
+}
+
+@keyframes wave1 {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+
+  100% {
+    transform: translateX(-100%) translateY(0);
+  }
+}
+
+.animated-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #6d5dfc, #d6a400);
+  background-size: 100% 100%;
+  animation: wave 3s ease infinite;
+  z-index: -1;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
 }

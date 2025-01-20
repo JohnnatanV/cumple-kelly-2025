@@ -1,43 +1,57 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const Countdown = () => {
-  const [days, setDays] = useState([]);
-  const [hours, setHours] = useState([]);
-  const [minutes, setMinutes] = useState([]);
-  const [seconds, setSeconds] = useState([]);
+const COUNTDOWN_T = new Date("2025-02-19T05:59:59");
+// const COUNTDOWN_T = new Date("2024-12-21T23:02:01");
 
-  const time = Date();
+const getTimeLeft = () => {
+  const totalTimeLeft = COUNTDOWN_T - new Date();
+  const days = Math.max(Math.floor(totalTimeLeft / (1000 * 60 * 60 * 24)), 0);
+  const hours = Math.max(
+    Math.floor((totalTimeLeft / (1000 * 60 * 60)) % 24),
+    0,
+  );
+  const minutes = Math.max(Math.floor((totalTimeLeft / (1000 * 60)) % 60), 0);
+  const seconds = Math.max(Math.floor((totalTimeLeft / 1000) % 60), 0);
 
-  // console.log(time);
+  return { totalTimeLeft, days, hours, minutes, seconds };
+};
+
+const Countdown = ({ onComplete }) => {
+  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const updatedTimeleft = getTimeLeft();
+
+      if (updatedTimeleft.totalTimeLeft <= 0) {
+        clearInterval(timer);
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        onComplete();
+        return;
+      }
+
+      setTimeLeft(updatedTimeleft);
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [onComplete]);
 
   return (
     <div className="countdown">
-      <h1>Countdown</h1>
       <div className="content">
-        <div className="box">
-          <div className="value">
-            <span>30</span>
-          </div>
-          <span className="label">days</span>
-        </div>
-        <div className="box">
-          <div className="value">
-            <span>30</span>
-          </div>
-          <span className="label">hours</span>
-        </div>
-        <div className="box">
-          <div className="value">
-            <span>30</span>
-          </div>
-          <span className="label">minutes</span>
-        </div>
-        <div className="box">
-          <div className="value">
-            <span>30</span>
-          </div>
-          <span className="label">seconds</span>
-        </div>
+        {Object.entries(timeLeft).map(([label, value]) => {
+          if (label === "totalTimeLeft") return null;
+          return (
+            <div className="box" key={label}>
+              <div className="value">
+                <span>{value}</span>
+              </div>
+              <span className="label">{label}</span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
