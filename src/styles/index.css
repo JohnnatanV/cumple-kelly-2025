@@ -14,12 +14,13 @@
 
   .content {
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     margin: auto;
-    gap: 2rem;
+    gap: 1rem;
 
     @media screen and (max-width: 550px) {
       flex-direction: column;
@@ -52,7 +53,7 @@
 
   .label {
     color: #202020ab;
-    margin: 1rem;
+    margin-top: 0.5rem;
   }
 }
 
@@ -66,23 +67,37 @@
   align-items: center;
 
   .message {
-    background-color: #909090dd;
+    background-color: #90909077;
+    width: 47%;
+    text-align: center;
     position: absolute;
     font-weight: 600;
-    padding: 0.4rem;
+    padding: 0.3rem;
     border-radius: 20px;
+    z-index: 100;
+
+    @media screen and (max-width: 550px) {
+      width: 65%;
+    }
   }
 
   .collage {
     width: 100%;
     margin: auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 5rem;
-    grid-row-gap: 7rem;
+    grid-row-gap: 6rem;
     justify-items: center;
     align-items: center;
+
+    @media screen and (max-width: 550px) {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      grid-column-gap: 2rem;
+      grid-row-gap: 2.5rem;
+    }
 
     .photo {
       width: 18rem;
@@ -91,6 +106,10 @@
       align-self: center;
       box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2);
 
+      @media screen and (max-width: 550px) {
+        width: 6.8rem;
+      }
+
       img {
         width: 100%;
         border-radius: 10px;
@@ -98,38 +117,11 @@
         object-fit: cover;
       }
     }
-  }
-}
 
-@keyframes wave1 {
-  0% {
-    transform: translateX(0) translateY(0);
+    @media screen and (max-width: 550px) {
+      .photo:nth-child(10) {
+        grid-column: span 3 / span 3;
+      }
+    }
   }
-
-  100% {
-    transform: translateX(-100%) translateY(0);
-  }
-}
-
-@keyframes wave1 {
-  0% {
-    transform: translateX(0) translateY(0);
-  }
-
-  100% {
-    transform: translateX(-100%) translateY(0);
-  }
-}
-
-.animated-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #6d5dfc, #d6a400);
-  background-size: 100% 100%;
-  animation: wave 3s ease infinite;
-  z-index: -1;
-  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
 }
